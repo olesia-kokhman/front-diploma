@@ -1,10 +1,7 @@
 import React from 'react';
 import "./Filter.css";
 
-const Filter = () => {
-
-    const data = ["one", "two", "three", "four"];
-
+const Filter = ({data}) => {
     const handleSubmit = (event) => {
         event.preventDefault();
     }
@@ -16,8 +13,8 @@ const Filter = () => {
                 {data.map((item, index) => {
                     return (
                         <div className="data-item" key={index}>
-                            <input type="checkbox" value={item} name="filter-list" autoFocus />
-                            <label>{item}</label>
+                            <input type="checkbox" value={item.name} name="filter-list" autoFocus />
+                            <label>{item.name}</label>
                         </div>
                     );
 

@@ -1,17 +1,7 @@
 import React from 'react';
 import "./TransactionHistory.css";
 
-const TransactionHistory = () => {
-
-    const transactions = [
-        {
-            date: "",
-            description: "",
-            category: "",
-            account: "",
-            amount: 0
-        }
-    ];
+const TransactionHistory = ({transactions}) => {
 
     return (
         <>
@@ -31,11 +21,11 @@ const TransactionHistory = () => {
                 {transactions.map((transaction, index) => {
                     return (
                            <tr key={index}>
-                               <td>{transaction.date}</td>
+                               <td>{transaction.dateTime}</td>
                                <td>{transaction.description}</td>
-                               <td>{transaction.category}</td>
-                               <td>{transaction.account}</td>
-                               <td>{transaction.amount}</td>
+                               <td>{transaction.category.map((category) => category.name).join(', ')}</td>
+                               <td>{transaction.account.name}</td>
+                               <td>{transaction.amount} {transaction.currency}</td>
                                <td>
                                    <button>Edit</button>
                                </td>
