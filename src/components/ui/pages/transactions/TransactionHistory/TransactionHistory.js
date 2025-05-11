@@ -1,7 +1,7 @@
 import React from 'react';
 import "./TransactionHistory.css";
 
-const TransactionHistory = ({transactions}) => {
+const TransactionHistory = ({transactions, onEdit, onDelete}) => {
 
     return (
         <>
@@ -23,14 +23,14 @@ const TransactionHistory = ({transactions}) => {
                            <tr key={index}>
                                <td>{transaction.dateTime}</td>
                                <td>{transaction.description}</td>
-                               <td>{transaction.category.map((category) => category.name).join(', ')}</td>
+                               <td>{transaction.category?.name || ""}</td>
                                <td>{transaction.account.name}</td>
                                <td>{transaction.amount} {transaction.currency}</td>
                                <td>
-                                   <button>Edit</button>
+                                   <button onClick={() => onEdit(transaction)}>Edit</button>
                                </td>
                                <td>
-                                   <button>Delete</button>
+                                   <button onClick={ () => onDelete(transaction.id)}>Delete</button>
                                </td>
                            </tr>
                         );

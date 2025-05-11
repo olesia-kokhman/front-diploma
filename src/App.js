@@ -5,7 +5,7 @@ import Accounts from './pages/Accounts';
 import Budget from './pages/Budget';
 import Transactions from './pages/Transactions';
 import Analytics from './pages/Analytics';
-import Navbar from './components/ui/Navbar/Navbar';
+import Navbar from './components/ui/general/Navbar/Navbar';
 import './App.css';
 
 function App() {

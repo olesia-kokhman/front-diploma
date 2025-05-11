@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import "./AccountMethodModal.css";
+import "./AccountConnectionMethodModal.css";
 
-const AccountMethodModal = () => {
+const AccountConnectionMethodModal = () => {
 
     const [modal, setModal] = useState(false);
 
@@ -57,4 +57,4 @@ const AccountMethodModal = () => {
     );
 }
 
-export default AccountMethodModal;
+export default AccountConnectionMethodModal;
