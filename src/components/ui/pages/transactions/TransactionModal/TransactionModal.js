@@ -1,149 +1,77 @@
-import React, {useEffect} from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./TransactionModal.css";
-import CustomDatePicker from "../../../general/CustomDateTimePicker/CustomDatePicker";
 import CustomTimePicker from "../../../general/CustomDateTimePicker/CustomTimePicker";
 
-const TransactionModal = ({transaction, onSave, onClose, accounts, categories}) => {
-
-    const [modalTitle, setModalTitle] = useState("");
-    const [transactionType, setTransactionType] = useState("");
-    const [account, setAccount] = useState("");
-    const [amount, setAmount] = useState("");
-    const [currency, setCurrency] = useState("");
-    const [categoryId, setCategoryId] = useState("");
-    const [description, setDescription] = useState("");
-
-    const setMode = () => {
-        if(transaction !== null) {
-            setModalTitle("Edit transaction");
-            setTransactionType(transaction.transactionType)
-            setAmount(transaction.amount);
-            setAccount(transaction.account.name);
-            setCategoryId(transaction.category.id);
-            setCurrency(transaction.currency);
-            setDescription(transaction.description);
-        } else {
-            setModalTitle("Add transaction");
-            setTransactionType("EXPENSE")
-            setAmount("0,00");
-            setAccount("Account");
-            //setCategoryId();
-            setCurrency("Currency");
-            setDescription("Add description");
-        }
-    }
+const TransactionModal = ({ transaction, onSave, onClose, accounts, categories }) => {
+    const [transactionType, setTransactionType] = useState("EXPENSE");
 
     useEffect(() => {
-        setMode();
+        if (transaction) {
+            setTransactionType(transaction.transactionType);
+        }
     }, [transaction]);
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-
-        const transactionData = {
-            amount: amount,
-            transactionType: transactionType,
-            currency: currency,
-            category: Number(categoryId),
-            account: Number(account),
-            description: description,
-            dateTime: "2025-05-09T20:00:00"
-        };
-
-        onSave(transactionData);
-    }
+    const handleTypeChange = (type) => {
+        setTransactionType(type);
+    };
 
     return (
-        <>
-            <form className="modal" onSubmit={handleSubmit}>
-                <div className="overlay">
-                    <div className="modal-content">
+        <div className="overlay">
+            <div className="modal-content">
+                <h4>Add transaction</h4>
 
-                        <h4>{modalTitle}</h4>
-
-                        <div className="transaction-type-selector">
-                            <input type="radio"
-                                   name="transaction-type"
-                                   value="EXPENSE"
-                                   checked={transactionType === "EXPENSE"}
-                                   onChange={(event) => setTransactionType(event.target.value)}
-                            />
-                            <label>Expense</label>
-                            <input type="radio"
-                                   name="transaction-type"
-                                   value="INCOME"
-                                   checked={transactionType === "INCOME"}
-                                   onChange={(e) => setTransactionType(e.target.value)}/>
-                            <label>Income</label>
-
-                            <input type="radio"
-                                   name="transaction-type"
-                                   value="TRANSFER"
-                                   checked={transactionType === "TRANSFER"}
-                                   onChange={(e) => setTransactionType(e.target.value)}/>
-                            <label>Transfer</label>
-                        </div>
-
-                        <CustomDatePicker/>
-                        <CustomTimePicker/>
-
-                        <select className="account-selector"
-                                value={account}
-                                onChange={(event) => setAccount(event.target.value)}>
-                            <option disabled>Account</option>
-                            {accounts.map((account) => (
-                                <option key={account.id} value={account.id}>{account.name}</option>
-                            ))}
-                        </select>
-
-                        <div className="amount-input-wrapper">
-                            <span className="prefix">-</span>
-                            <input className="amount-input"
-                                   type="text"
-                                   inputMode="decimal"
-                                   placeholder="0,00"
-                                   value={amount}
-                                   onChange={(event) => setAmount(event.target.value)}/>
-                        </div>
-
-                        <select className="currency-selector"
-                                value={currency}
-                                onChange={(event) => setCurrency(event.target.value)}>
-                            <option disabled>Currency</option>
-                            <option>UAH</option>
-                            <option>USD</option>
-                            <option>EUR</option>
-                            <option>PLN</option>
-                        </select>
-
-                        <select className="category-selector"
-                                value={categoryId}
-                                onChange={(event) => setCategoryId(event.target.value)}>
-                            <option disabled value="">Category</option>
-                            {categories.map((category) => (
-                                <option key={category.id} value={category.id}>{category.name}</option>
-                            ))}
-                        </select>
-
-                        <input className="description-input"
-                               type="text" inputMode="text"
-                               placeholder="Add description"
-                               value={description}
-                               onChange={(event) => setDescription(event.target.value)}/>
-
-                        <button className="submit-button" type="submit">
-                            Save
+                <div className="transaction-type-toggle">
+                    {["EXPENSE", "INCOME", "TRANSFER"].map((type) => (
+                        <button
+                            key={type}
+                            type="button"
+                            className={`type-button ${transactionType === type ? 'active' : ''}`}
+                            onClick={() => handleTypeChange(type)}
+                        >
+                            {type.charAt(0) + type.slice(1).toLowerCase()}
                         </button>
-                        <button className="cancel-button" onClick={onClose}>
-                            Cancel
-                        </button>
-                    </div>
+                    ))}
                 </div>
-            </form>
 
-        </>
+                <div className="row">
+                    <CustomTimePicker />
+                    <select>
+                        <option>Account</option>
+                        {accounts.map(acc => <option key={acc.id}>{acc.name}</option>)}
+                    </select>
+                </div>
+
+                <div className="row">
+                    <select>
+                        <option>Account</option>
+                        {categories.map(category => <option key={category.id}>{category.name}</option>)}
+                    </select>
+                </div>
+
+                <div className="row">
+                    <span className="prefix">-</span>
+                    <input type="text" placeholder="0,00" />
+                    <select>
+                        <option>UAH</option>
+                        <option>USD</option>
+                        <option>EUR</option>
+                        <option>PLN</option>
+                    </select>
+                </div>
+
+                <div className="row">
+                    <select><option>Category</option></select>
+                </div>
+
+                <input className="description-input" placeholder="Add description..." />
+
+                <div className="row">
+                    <button className="primary-action">Add transaction ✔</button>
+                    <button className="secondary-action" onClick={onClose}>Cancel ✖</button>
+                </div>
+            </div>
+        </div>
     );
-}
+};
 
 export default TransactionModal;

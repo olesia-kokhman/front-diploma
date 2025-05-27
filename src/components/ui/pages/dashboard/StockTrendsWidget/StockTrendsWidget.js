@@ -2,26 +2,24 @@ import React from 'react';
 import "./StockTrendsWidget.css";
 import BaseWidget from "../BaseWidget/BaseWidget";
 
-const StockTrendsWidget = () => {
-
-    const stocks = [
-        { name: "Amazon", price: "171,00 USD", change: -4.15 },
-        { name: "Samsung Electronics Co Ltd", price: "56100 KRW", change: 2.60 },
-        { name: "Nvidia", price: "94,31 USD", change: -7.36 }
-    ];
+const StockTrendsWidget = ({stocks}) => {
 
     const title = "Stock trends";
     const content = (
         <>
             {stocks.map((stock, index) => {
+                const isPositive = stock.changePercent >= 0;
+                const changeClass = isPositive ? 'stock-up' : 'stock-down';
+
                 return (
                     <div key={index}>
-                        <div>
+                        <div className="stock-info">
                             <p>{stock.name}</p>
-                            <p>{stock.price}</p>
+                            <p className="stock-price">{stock.currentPrice.toFixed(2) } USD</p>
                         </div>
-                        <div>
-                            <p>{stock.change}</p>
+
+                        <div className={`stock-change ${changeClass}`}>
+                            {stock.changePercent.toFixed(2) } %
                         </div>
                     </div>
                 );

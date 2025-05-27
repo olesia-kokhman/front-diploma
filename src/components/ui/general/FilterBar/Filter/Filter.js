@@ -1,46 +1,42 @@
-import React, {useState} from 'react';
-import "./Filter.css";
+import React, { useState } from 'react';
+import './Filter.css';
 
-const Filter = ({filterTitle, data, onApplyFilter}) => {
-
+const Filter = ({ filterTitle, data, onApplyFilter }) => {
     const [selectedData, setSelectedData] = useState([]);
 
     const handleCheckboxChange = (itemId) => {
-        if(!selectedData.includes(itemId)) {
+        if (!selectedData.includes(itemId)) {
             setSelectedData((prevState) => [...prevState, itemId]);
         } else {
-            setSelectedData((prevState) => {
-                return prevState.filter((id) => id !== itemId);
-            })
+            setSelectedData((prevState) =>
+                prevState.filter((id) => id !== itemId)
+            );
         }
-    }
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
         onApplyFilter(selectedData);
-    }
+    };
 
     return (
-        <>
-            <h5>{filterTitle}</h5>
+        <div className="filter-container">
+            <h5 className="filter-title">{filterTitle}</h5>
             <form className="filter-list" onSubmit={handleSubmit}>
-                {data.map((item, index) => {
-                    return (
-                        <div className="data-item" key={index}>
-                            <input type="checkbox" autoFocus
-                                   name="filter-list"
-                                   checked={selectedData.includes(item.id)}
-                                   value={item.id}
-                                   onChange={() => handleCheckboxChange(item.id)}
-                                   />
-                            <label>{item.name}</label>
-                        </div>
-                    );
-                })}
+                {data.map((item) => (
+                    <div className="data-item" key={item.id}>
+                        <input
+                            type="checkbox"
+                            checked={selectedData.includes(item.id)}
+                            onChange={() => handleCheckboxChange(item.id)}
+                        />
+                        <label>{item.name}</label>
+                    </div>
+                ))}
                 <button type="submit">Apply filters</button>
             </form>
-        </>
+        </div>
     );
-}
+};
 
 export default Filter;

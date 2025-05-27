@@ -1,0 +1,55 @@
+.transaction-history-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #2c2e48;
+    color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.transaction-history-table thead {
+    background-color: #1e2035;
+}
+
+.transaction-history-table th,
+.transaction-history-table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #3a3c5a;
+}
+
+.transaction-history-table tr:last-child td {
+    border-bottom: none;
+}
+
+.transaction-history-table th {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.transaction-history-table td {
+    font-size: 14px;
+}
+
+/* Іконки замість тексту Edit / Delete */
+.transaction-history-table .icon-button {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Hover ефекти */
+.transaction-history-table .icon-button:hover {
+    color: #ff6b6b;
+}
+
+/* Для таблиці м'які кути */
+.transaction-history-table-container {
+    border-radius: 10px;
+    overflow: hidden;
+}

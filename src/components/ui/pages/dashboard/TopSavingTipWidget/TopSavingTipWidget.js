@@ -2,12 +2,12 @@ import React from 'react';
 import "./TopSavingTipWidget.css";
 import BaseWidget from "../BaseWidget/BaseWidget";
 
-const TopSavingTipWidget = () => {
+const TopSavingTipWidget = ({tip}) => {
 
     const title = "Top saving tip";
     const content = (
         <>
-            <p>Transfer 10% of your income to savings every payday</p>
+            <p>{tip.description}</p>
         </>
     )
 

@@ -1,66 +1,64 @@
-import React, {useState} from 'react';
-import "./FilterBar.css";
-import Filter from "./Filter/Filter";
-import CustomPeriodPicker from "../CustomDateTimePicker/CustomPeriodPicker";
+import React, { useState } from 'react';
+import Filter from './Filter/Filter';
+import CustomPeriodPicker from '../CustomDateTimePicker/CustomPeriodPicker';
+import './FilterBar.css';
 
-const FilterBar = ({accounts, categories, onApplyFilter, onAddClick}) => {
+const FilterBar = ({ accounts, categories, onApplyFilter }) => {
+    const [openFilter, setOpenFilter] = useState(null);
 
-    const [isCategoryFilterOpen, setIsCategoryFilterOpen] =  useState(false);
-    const [isAccountFilterOpen, setIsAccountFilterOpen] = useState(false);
-
-    const toggleCategoryFilter = () => {
-        if(isAccountFilterOpen) {
-            toggleAccountFilter()
-        }
-        setIsCategoryFilterOpen(!isCategoryFilterOpen);
-    }
-
-    const toggleAccountFilter = () => {
-        if(isCategoryFilterOpen) {
-            toggleCategoryFilter()
-        }
-        setIsAccountFilterOpen(!isAccountFilterOpen);
-    }
+    const toggleFilter = (type) => {
+        setOpenFilter(openFilter === type ? null : type);
+    };
 
     const handleApplyCategories = (categoryIds) => {
-        console.log("handle apply categories in filter bar");
-        setIsCategoryFilterOpen(false);
-        onApplyFilter("categories", categoryIds);
-    }
+        setOpenFilter(null);
+        onApplyFilter('categories', categoryIds);
+    };
 
     const handleApplyAccounts = (accountIds) => {
-        console.log("handle apply accounts in filter bar");
-        setIsAccountFilterOpen(false);
-        onApplyFilter("accounts", accountIds)
-    }
+        setOpenFilter(null);
+        onApplyFilter('accounts', accountIds);
+    };
 
     return (
-        <>
-            <div className="filter-bar-wrapper">
-               <div className="filter-bar">
+        <div className="filter-bar-wrapper">
+            <div className="filter-bar-inner">
+                <CustomPeriodPicker />
 
-                   <CustomPeriodPicker/>
+                <div className="filter-button-wrapper">
+                    <button className="filter-button" onClick={() => toggleFilter('category')}>
+                        Filter by category
+                    </button>
+                    {openFilter === 'category' && (
+                        <div className="filter-flyout-absolute">
+                            <Filter
+                                filterTitle="Categories"
+                                data={categories}
+                                onApplyFilter={handleApplyCategories}
+                            />
+                        </div>
+                    )}
+                </div>
 
-                   <button className="category-selector" onClick={toggleCategoryFilter}>
-                       Filter by category
-                   </button>
-                   {isCategoryFilterOpen && <Filter filterTitle="Categories"
-                                                    data={categories}
-                                                    onApplyFilter={handleApplyCategories}/>}
+                <div className="filter-button-wrapper">
+                    <button className="filter-button" onClick={() => toggleFilter('account')}>
+                        Filter by account
+                    </button>
+                    {openFilter === 'account' && (
+                        <div className="filter-flyout-absolute">
+                            <Filter
+                                filterTitle="Accounts"
+                                data={accounts}
+                                onApplyFilter={handleApplyAccounts}
+                            />
+                        </div>
+                    )}
+                </div>
 
-                   <button className="account-selector" onClick={toggleAccountFilter}>
-                       Filter by account
-                   </button>
-                   {isAccountFilterOpen && <Filter filterTitle="Accounts"
-                                                   data={accounts}
-                                                   onApplyFilter={handleApplyAccounts}/>}
-                   <button className="clear-button">Clear</button>
-
-               </div>
-                <button className="add-button" onClick={onAddClick}>Add transaction</button>
+                <button className="clear-button">Clear</button>
             </div>
-        </>
+        </div>
     );
-}
+};
 
 export default FilterBar;

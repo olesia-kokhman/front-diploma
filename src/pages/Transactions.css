@@ -1,0 +1,32 @@
+.transaction-page {
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.top-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.filter-bar {
+    flex-grow: 1;
+}
+
+.add-transaction-button {
+    background-color: #e87a84;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s ease-in-out;
+}
+
+.add-transaction-button:hover {
+    background-color: #ff5e6c;
+}

@@ -7,6 +7,7 @@ import Transactions from './pages/Transactions';
 import Analytics from './pages/Analytics';
 import Navbar from './components/ui/general/Navbar/Navbar';
 import './App.css';
+import './index.css';
 
 function App() {
     return (

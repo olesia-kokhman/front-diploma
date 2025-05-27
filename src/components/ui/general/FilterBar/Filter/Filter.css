@@ -1,0 +1,71 @@
+.filter-flyout-absolute {
+    position: absolute;
+    top: 50px; /* регулюй під свою кнопку */
+    left: 150px; /* регулюй для вирівнювання */
+    z-index: 999;
+}
+
+/* Контейнер фільтра */
+.filter-container {
+    background-color: white;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    width: 250px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow: hidden;
+}
+
+/* Заголовок всередині */
+.filter-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #6b7280;
+    padding: 10px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* Список з прокруткою */
+.filter-list {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Пункти фільтра */
+.data-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+/* Чекбокси */
+.data-item input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #141b4d;
+    cursor: pointer;
+}
+
+/* Кнопка Apply */
+.filter-list button {
+    margin-top: 12px;
+    padding: 10px;
+    background-color: #e87a84;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.filter-list button:hover {
+    background-color: #ff5e6c;
+}
